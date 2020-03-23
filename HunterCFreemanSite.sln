@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HunterCFreemanSite", "HunterCFreemanSite\HunterCFreemanSite.csproj", "{93BEC0FA-0898-438A-82A9-A85C5508A0DD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DM2BD.Typeahead", "TypeaheadBlazor\DM2BD.Typeahead.csproj", "{93CF7EF5-6AED-4138-B656-697E47021C2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{93BEC0FA-0898-438A-82A9-A85C5508A0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93BEC0FA-0898-438A-82A9-A85C5508A0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93BEC0FA-0898-438A-82A9-A85C5508A0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93CF7EF5-6AED-4138-B656-697E47021C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93CF7EF5-6AED-4138-B656-697E47021C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93CF7EF5-6AED-4138-B656-697E47021C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93CF7EF5-6AED-4138-B656-697E47021C2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

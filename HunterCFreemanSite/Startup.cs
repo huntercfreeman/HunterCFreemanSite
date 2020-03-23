@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HunterCFreemanSite.Data;
+using HunterCFreemanSite.Repositories;
+using HunterCFreemanSite.Interfaces;
 
 namespace HunterCFreemanSite
 {
@@ -29,6 +31,7 @@ namespace HunterCFreemanSite
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IProgrammingProjectRepository, ProgrammingProjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

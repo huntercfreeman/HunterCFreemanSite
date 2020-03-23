@@ -8,6 +8,7 @@ namespace HunterCFreemanSite.Interfaces
 {
     interface IProgrammingProjectRepository
     {
-        
+        List<ProgrammingProject> GetProgrammingProjects();
+        List<ProgrammingProject> GetProgrammingProjectsByTitle(string title);
     }
 }
