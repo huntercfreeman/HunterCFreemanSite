@@ -16,14 +16,16 @@ namespace HunterCFreemanSite.Repositories
                 Title = "Pathfinding Algorithm Visualizer in C#",
                 Description = "A Pathfinding Algorithm Visualizer written in C#",
                 Tags = new List<string> { "C#", "CSharp", "Pathfinding", "Pathfinding Algorithms", "Algorithms", "Dijkstra", "AStar", "A*", "Visualize", "Visualizer" },
-                ImageURL = "content/images/Untitzzzzled.png"
+                ImageURL = "content/images/Untitzzzzled.png",
+                HrefURL = "https://huntercfreeman.github.io/"
             },
             new ProgrammingProject
             {
                 Title = "Sorting Algorithm Visualizer in C#",
                 Description = "A Sorting Algorithm Visualizer written in C#",
                 Tags = new List<string> { "C#", "CSharp", "Sorting", "Sorting Algorithms", "Algorithms", "Sort", "Bubble Sort", "Bubble", "Merge Sort", "Merge", "Visualize", "Visualizer" },
-                ImageURL = "content/images/zzzUntitled.png"
+                ImageURL = "content/images/zzzUntitled.png",
+                HrefURL = "https://huntercfreeman.github.io/"
             },
             new ProgrammingProject
             {
@@ -69,7 +71,7 @@ namespace HunterCFreemanSite.Repositories
 
         public List<ProgrammingProject> GetProgrammingProjectsByTitle(string title)
         {
-            return _programmingProjects;
+            return _programmingProjects.Where(x => x.Title.Contains(title)).ToList();
         }
     }
 }

@@ -3,11 +3,15 @@
 @using Interfaces
 @using DM2BD.Typeahead
 @inject IProgrammingProjectRepository ProgrammingProjectRepository
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<Typeahead ItemType="ProgrammingProject" DisplayAutocompleteDropdown="true" Filter="(async (x) => ProgrammingProjectRepository.GetProgrammingProjectsByTitle(x))" />
+<h1>Filter using the searchbar directly below this:</h1>
+<Typeahead ItemType="ProgrammingProject" Filter="(async (x) => ProgrammingProjectRepository.GetProgrammingProjectsByTitle(x))"
+           OnAutocomplete="((x) => { ProgrammingProjects = x; StateHasChanged(); })" Selector="((ProgrammingProject x) => x.Title)" Placeholder="Filter Results">
+    <AutocompleteDropdownItemTemplate Context="searchContext">
+        <div>@searchContext.Title</div>
+    </AutocompleteDropdownItemTemplate>
+    <SubmitButtonTemplate>
+    </SubmitButtonTemplate>
+</Typeahead>
 @*
 <Typeahead ItemType="Game" DisplayAutocompleteDropdown="true" Selector="((Game x) => x.Title)" Text="Search:" Placeholder=""
                            Filter="(async (x) => GameService.GetGamesByTitle(x))" OnAutocomplete="((x) => { Games = x; StateHasChanged(); })" ResultsAreSame="true">
@@ -23,12 +27,24 @@ Welcome to your new app.
 *@
 <div class="container">
     <div class="row">
-        @foreach (ProgrammingProject programmingProject in ProgrammingProjectRepository.GetProgrammingProjects())
+        @foreach (ProgrammingProject programmingProject in ProgrammingProjects)
         {
             <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                <img style="max-width:100%; max-height:100%;" src="@programmingProject.ImageURL"/>
-                @programmingProject.Title
+                <a href="@programmingProject.HrefURL" target="_blank">
+                    <img style="max-width:100%; max-height:100%;" src="@programmingProject.ImageURL" />
+                    @programmingProject.Title
+                </a>
             </div>
         }
     </div>
 </div>
+
+@code
+{ 
+    public List<ProgrammingProject> ProgrammingProjects { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        ProgrammingProjects = ProgrammingProjectRepository.GetProgrammingProjects();
+    }
+}
