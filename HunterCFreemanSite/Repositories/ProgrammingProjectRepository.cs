@@ -32,35 +32,38 @@ namespace HunterCFreemanSite.Repositories
                 Title = "Singly Linked List in C",
                 Description = "A full implementation of a singly linked list in C written with name collision in mind.",
                 Tags = new List<string> { "C", "Datastructures", "Linked List", "Singly Linked List", "Singly", "Collision" },
-                ImageURL = "content/images/Untitlesssssd.png"
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/singlyLinkedList"
             },
             new ProgrammingProject
             {
                 Title = "Doubly Linked List in C",
                 Description = "A full implementation of a doubly linked list in C written with name collision in mind.",
                 Tags = new List<string> { "C", "Datastructures", "Linked List", "Doubly Linked List", "Doubly", "Collision" },
-                ImageURL = "content/images/Untitlesssssd.png"
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/doublyLinkedList"
             },
             new ProgrammingProject
             {
                 Title = "Binary Search Tree in C",
                 Description = "A full implementation of a binary search tree in C written with name collision in mind.",
                 Tags = new List<string> { "C", "Datastructures", "Binary Search Tree", "Tree", "Collision" },
-                ImageURL = "content/images/Untitlesssssd.png"
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/singlyLinkedList"
             },
             new ProgrammingProject
             {
                 Title = "Linked List Visualizer in C#",
                 Description = "A Linked List Visualizer written in C#",
                 Tags = new List<string> { "C#", "CSharp", "Linked List", "Singly Linked List", "Doubly Linked List", "Visualize", "Visualizer" },
-                ImageURL = ""
+                ImageURL = "content/images/Untitlesssssd.png"
             },
             new ProgrammingProject
             {
                 Title = "Binary Search Tree Visualizer in C#",
                 Description = "A Binary Search Tree Visualizer written in C#",
                 Tags = new List<string> { "C#", "CSharp", "Binary Search Tree", "BST", "Tree", "Visualize", "Visualizer" },
-                ImageURL = ""
+                ImageURL = "content/images/Untitlesssssd.png"
             }
         };
 
