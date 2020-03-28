@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HunterCFreemanSite.Interfaces
 {
-    interface IProgrammingProjectRepository
+    public interface IProgrammingProjectRepository
     {
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsByTitle(string title);
