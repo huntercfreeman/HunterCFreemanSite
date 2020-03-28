@@ -1,0 +1,50 @@
+﻿<div class="sidebar" style="background-image: none; background-color: lightgray; width: @(Width)px; height: @(Height);">
+    <div class="top-row pl-4 navbar navbar-dark">
+        @if (!IsCollapsed)
+        {
+            <a class="navbar-brand" href="">Filters</a>
+            <div @onclick="(() => { Width = 100; IsCollapsed = true; })" class="btn btn-primary">
+                <span class="oi oi-collapse-left" aria-hidden="true"></span>
+            </div>
+        }
+        else
+        {
+            <div @onclick="(() => { Width = 250; IsCollapsed = false ; })" class="btn btn-primary">
+                <span class="oi oi-expand-right" aria-hidden="true"></span>
+            </div>
+        }
+        <button class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    @if (!IsCollapsed)
+    {
+        <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    test
+                </li>
+                <li class="nav-item px-3">
+                    test
+                </li>
+                <li class="nav-item px-3">
+                    test
+                </li>
+                <li class="nav-item px-3">
+                    test
+                </li>
+            </ul>
+        </div>
+    }
+</div>
+    @code {
+        private bool collapseNavMenu = true;
+
+        private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+        private void ToggleNavMenu()
+        {
+            collapseNavMenu = !collapseNavMenu;
+        }
+    }
