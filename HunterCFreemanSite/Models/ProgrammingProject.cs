@@ -12,5 +12,8 @@ namespace HunterCFreemanSite.Models
         public string ImageURL { get; set; }
         public List<string> Tags { get; set; }
         public string HrefURL { get; set; }
+        public bool Display { get; set; }
+        public bool PassedCFilter { get; set; }
+        public bool PassedCSharpFilter { get; set; }
     }
 }
