@@ -71,14 +71,31 @@ namespace HunterCFreemanSite.Repositories
 
         public List<ProgrammingProject> GetProgrammingProjects()
         {
-
-            return _programmingProjects;
+            if(!string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                foreach(ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedSearch = programmingProject.Title.Contains(SearchQuery);
+                }
+            }
+            foreach(ProgrammingProject programmingProject in _programmingProjects)
+            {
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpFilter;
+            }
+            return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
 
-        public List<ProgrammingProject> GetProgrammingProjectsByTitle(string title)
+        public List<ProgrammingProject> FilterByTitle(string title)
         {
             SearchQuery = title;
-            return _programmingProjects.Where(x => x.Title.Contains(title)).ToList();
+            if(string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedSearch = true;
+                }
+            }
+            DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
 

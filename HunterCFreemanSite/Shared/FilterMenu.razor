@@ -29,7 +29,7 @@
             <ul class="nav flex-column">
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Search</h3>
-                    <Typeahead ItemType="ProgrammingProject" Filter="(async (x) => ProgrammingProjectRepository.GetProgrammingProjectsByTitle(x))"
+                    <Typeahead ItemType="ProgrammingProject" Filter="(async (x) => ProgrammingProjectRepository.FilterByTitle(x))"
                                OnAutocomplete="((x) => { ProgrammingProjects = x; StateHasChanged(); })" Selector="((ProgrammingProject x) => x.Title)" Placeholder="Filter Results">
                         <AutocompleteDropdownItemTemplate Context="searchContext">
                             <div>@searchContext.Title</div>

@@ -23,6 +23,7 @@ namespace HunterCFreemanSite.Pages
         private void ProgrammingProjectRepository_DataChangedEventHandler(object sender, EventArgs e)
         {
             ProgrammingProjects = ProgrammingProjectRepository.GetProgrammingProjects();
+            InvokeAsync(StateHasChanged);
         }
     }
 }

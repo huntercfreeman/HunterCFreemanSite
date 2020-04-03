@@ -10,7 +10,7 @@ namespace HunterCFreemanSite.Interfaces
     {
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();
-        List<ProgrammingProject> GetProgrammingProjectsByTitle(string title);
+        List<ProgrammingProject> FilterByTitle(string title);
 
         public event EventHandler DataChangedEventHandler;
 
