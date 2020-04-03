@@ -15,5 +15,6 @@ namespace HunterCFreemanSite.Interfaces
         public event EventHandler DataChangedEventHandler;
 
         public void DataChangedEventInvoke(EventArgs e);
+        List<ProgrammingProject> FilterByCProgrammingLanguage();
     }
 }

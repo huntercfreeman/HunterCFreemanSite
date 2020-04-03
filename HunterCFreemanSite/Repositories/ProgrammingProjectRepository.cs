@@ -68,6 +68,7 @@ namespace HunterCFreemanSite.Repositories
         };
 
         public string SearchQuery { get; set; }
+        public bool FilterByCProgrammingLanguageBool { get; set; }
 
         public List<ProgrammingProject> GetProgrammingProjects()
         {
@@ -78,9 +79,19 @@ namespace HunterCFreemanSite.Repositories
                     programmingProject.PassedSearch = programmingProject.Title.Contains(SearchQuery);
                 }
             }
+            if(FilterByCProgrammingLanguageBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("C") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedCProgrammingLanguageFilter = true;
+                    else programmingProject.PassedCProgrammingLanguageFilter = false;
+                }
+            }
             foreach(ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -95,6 +106,20 @@ namespace HunterCFreemanSite.Repositories
                     programmingProject.PassedSearch = true;
                 }
             }
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByCProgrammingLanguage()
+        {
+            if(FilterByCProgrammingLanguageBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedCProgrammingLanguageFilter = true;
+                }
+            }
+            FilterByCProgrammingLanguageBool = !FilterByCProgrammingLanguageBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }

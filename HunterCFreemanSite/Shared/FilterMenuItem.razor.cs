@@ -10,6 +10,9 @@ namespace HunterCFreemanSite.Shared
     {
         [Parameter]
         public string DisplayText { get; set; }
+        [Parameter]
+        public Action Filter { get; set; }
         public int NumberOfItems { get; set; }
+        
     }
 }
