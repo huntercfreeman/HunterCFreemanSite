@@ -13,7 +13,7 @@ namespace HunterCFreemanSite.Models
         public List<string> Tags { get; set; }
         public string HrefURL { get; set; }
         public bool Display { get; set; }
-        public bool PassedCFilter { get; set; }
+        public bool PassedSearch { get; set; }
         public bool PassedCSharpFilter { get; set; }
     }
 }

@@ -67,14 +67,32 @@ namespace HunterCFreemanSite.Repositories
             }
         };
 
+        public string SearchQuery { get; set; }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
+
             return _programmingProjects;
         }
 
         public List<ProgrammingProject> GetProgrammingProjectsByTitle(string title)
         {
+            SearchQuery = title;
             return _programmingProjects.Where(x => x.Title.Contains(title)).ToList();
+            return GetProgrammingProjects();
+        }
+
+        public event EventHandler DataChangedEventHandler;
+
+        public void DataChangedEventInvoke(EventArgs e)
+        {
+            EventHandler handler = DataChangedEventHandler;
+            handler?.Invoke(this, e);
+        }
+
+        public List<ProgrammingProject> GetProgrammingProjectsUnfiltered()
+        {
+            return _programmingProjects;
         }
     }
 }

@@ -30,16 +30,12 @@ namespace HunterCFreemanSite.Repositories
 
         }
 
-        public void ApplyFilters()
+        public void TurnFilterOn(string filter)
         {
-            List<ProgrammingProject> programmingProjects = new List<ProgrammingProject>();
-
-            if(FilterOnC)
-                foreach(ProgrammingProject programmingProject in filters["C"])
-                {
-                    programmingProject.Display = true;
-                }
-
+            foreach(ProgrammingProject programmingProject in filters[filter])
+            {
+                programmingProject.Display = true;
+            }
         }
 
         public void TurnFilterOff(string filter)
