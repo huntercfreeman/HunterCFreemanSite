@@ -14,3 +14,7 @@
 {
     <ActiveFilterItem DisplayText="Lists" RemoveFilter="(() => ProgrammingProjectRepository.FilterByLists())" />
 }
+@if (ProgrammingProjectRepository.FilterByTreesBool)
+{
+    <ActiveFilterItem DisplayText="Trees" RemoveFilter="(() => ProgrammingProjectRepository.FilterByTrees())" />
+}

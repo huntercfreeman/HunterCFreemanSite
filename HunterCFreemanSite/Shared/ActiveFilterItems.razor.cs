@@ -15,37 +15,25 @@ namespace HunterCFreemanSite.Shared
         protected override void OnInitialized()
         {
             base.OnInitialized();
-            ProgrammingProjectRepository.SearchQueryEventHandler += ProgrammingProjectRepository_SearchQueryEventHandler;
-            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
-            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
-            ProgrammingProjectRepository.FilterByListsBoolEventHandler += ProgrammingProjectRepository_FilterByListsBoolEventHandler;
+            ProgrammingProjectRepository.SearchQueryEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByListsBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByTreesBoolEventHandler += FilterSetEventHandler;
         }
 
-        private void ProgrammingProjectRepository_FilterByListsBoolEventHandler(object sender, EventArgs e)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler(object sender, EventArgs e)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler(object sender, EventArgs e)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void ProgrammingProjectRepository_SearchQueryEventHandler(object sender, EventArgs e)
+        private void FilterSetEventHandler(object sender, EventArgs e)
         {
             InvokeAsync(StateHasChanged);
         }
 
         public void Dispose()
         {
-            ProgrammingProjectRepository.SearchQueryEventHandler -= ProgrammingProjectRepository_SearchQueryEventHandler;
-            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler -= ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
-            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler -= ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
+            ProgrammingProjectRepository.SearchQueryEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByListsBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByTreesBoolEventHandler -= FilterSetEventHandler;
         }
 
         

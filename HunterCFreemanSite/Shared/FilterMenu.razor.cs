@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HunterCFreemanSite.Shared
 {
-    public partial class FilterMenu : ComponentBase
+    public partial class FilterMenu : ComponentBase, IDisposable
     {
         [Inject]
         private IProgrammingProjectRepository ProgrammingProjectRepository { get; set; }
@@ -25,22 +25,13 @@ namespace HunterCFreemanSite.Shared
         {
             base.OnInitialized();
             ProgrammingProjects = ProgrammingProjectRepository.GetProgrammingProjects();
-            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
-            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
-            ProgrammingProjectRepository.FilterByListsBoolEventHandler += ProgrammingProjectRepository_FilterByListsBoolEventHandler;
+            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByListsBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByTreesBoolEventHandler += FilterSetEventHandler;
         }
 
-        private void ProgrammingProjectRepository_FilterByListsBoolEventHandler(object sender, EventArgs e)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler(object sender, EventArgs e)
-        {
-            InvokeAsync(StateHasChanged);
-        }
-
-        private void ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler(object sender, EventArgs e)
+        private void FilterSetEventHandler(object sender, EventArgs e)
         {
             InvokeAsync(StateHasChanged);
         }
@@ -48,6 +39,14 @@ namespace HunterCFreemanSite.Shared
         private void NotImplemented()
         {
             Console.WriteLine("Not Implemented");
+        }
+
+        public void Dispose()
+        {
+            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByListsBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByTreesBoolEventHandler -= FilterSetEventHandler;
         }
     }
 }
