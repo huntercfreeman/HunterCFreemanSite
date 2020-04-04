@@ -40,6 +40,7 @@ namespace HunterCFreemanSite.Shared
             ProgrammingProjectRepository.FilterByGraphsBoolEventHandler += FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByOtherBoolEventHandler += FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByOnlineShopBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByBlogBoolEventHandler += FilterSetEventHandler;
         }
 
         private void FilterSetEventHandler(object sender, EventArgs e)
@@ -69,6 +70,7 @@ namespace HunterCFreemanSite.Shared
             ProgrammingProjectRepository.FilterByGraphsBoolEventHandler -= FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByOtherBoolEventHandler -= FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByOnlineShopBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByBlogBoolEventHandler -= FilterSetEventHandler;
         }
     }
 }

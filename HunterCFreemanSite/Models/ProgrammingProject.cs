@@ -30,5 +30,6 @@ namespace HunterCFreemanSite.Models
         public bool PassedGraphsFilter { get; set; } = true;
         public bool PassedOtherFilter { get; set; } = true;
         public bool PassedOnlineShopFilter { get; set; } = true;
+        public bool PassedBlogFilter { get; set; } = true;
     }
 }

@@ -64,7 +64,7 @@
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Software Development</h3>
                     <FilterMenuItem DisplayText="Online Shop" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedOnlineShopFilter" Filter="(() => ProgrammingProjectRepository.FilterByOnlineShop())" IsChecked="(() => ProgrammingProjectRepository.FilterByOnlineShopBool ? true : false)" />
-                    <FilterMenuItem DisplayText="Blog" Filter="NotImplemented" IsChecked="(() => false)" />
+                    <FilterMenuItem DisplayText="Blog" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedBlogFilter" Filter="(() => ProgrammingProjectRepository.FilterByBlog())" IsChecked="(() => ProgrammingProjectRepository.FilterByBlogBool ? true : false)" />
                 </li>
             </ul>
         </div>

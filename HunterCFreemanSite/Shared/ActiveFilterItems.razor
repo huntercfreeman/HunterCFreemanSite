@@ -62,3 +62,7 @@
 {
     <ActiveFilterItem DisplayText="Online Shop" RemoveFilter="(() => ProgrammingProjectRepository.FilterByOnlineShop())" />
 }
+@if (ProgrammingProjectRepository.FilterByBlogBool)
+{
+    <ActiveFilterItem DisplayText="Blog" RemoveFilter="(() => ProgrammingProjectRepository.FilterByBlog())" />
+}
