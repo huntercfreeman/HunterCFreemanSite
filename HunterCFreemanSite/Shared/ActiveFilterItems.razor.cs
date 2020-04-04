@@ -21,12 +21,12 @@ namespace HunterCFreemanSite.Shared
 
         private void ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler(object sender, EventArgs e)
         {
-            StateHasChanged();
+            InvokeAsync(StateHasChanged);
         }
 
         private void ProgrammingProjectRepository_SearchQueryEventHandler(object sender, EventArgs e)
         {
-            StateHasChanged();
+            InvokeAsync(StateHasChanged);
         }
 
         public void Dispose()

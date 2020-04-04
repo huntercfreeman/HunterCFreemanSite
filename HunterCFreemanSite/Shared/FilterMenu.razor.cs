@@ -25,6 +25,17 @@ namespace HunterCFreemanSite.Shared
         {
             base.OnInitialized();
             ProgrammingProjects = ProgrammingProjectRepository.GetProgrammingProjects();
+            ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
+        }
+
+        private void ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler(object sender, EventArgs e)
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
+        private void NotImplemented()
+        {
+            Console.WriteLine("Not Implemented");
         }
     }
 }

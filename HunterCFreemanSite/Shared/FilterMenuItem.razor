@@ -1,4 +1,11 @@
 ﻿<div style="margin-left: 50px;">
     <span title="Number of @DisplayText Programming Projects">(@NumberOfItems)</span>&nbsp;@DisplayText
-    <input type="checkbox" @onclick="Filter"/>
+    @if (IsChecked())
+    {
+        <input checked="checked" type="checkbox" @onclick="(() => { Filter(); InvokeAsync(StateHasChanged); })" />
+    }
+    else
+    {
+        <input type="checkbox" @onclick="(() => { Filter(); InvokeAsync(StateHasChanged); })" />
+    }
 </div>
