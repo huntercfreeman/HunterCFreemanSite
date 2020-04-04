@@ -64,6 +64,48 @@ namespace HunterCFreemanSite.Repositories
                 Description = "A Binary Search Tree Visualizer written in C#",
                 Tags = new List<string> { "C#", "CSharp", "Binary Search Tree", "BST", "Tree", "Visualize", "Visualizer" },
                 ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Differential Calculus",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Differential Calculus" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Integral Calculus",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Integral Calculus" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Multivariable Calculus",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Multivariable Calculus" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Differential Equations",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Differential Equations" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Linear Algebra",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Linear Algebra" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Discrete Math",
+                Description = "A site with an answer to every problem in this book",
+                Tags = new List<string> { "Discrete Math" },
+                ImageURL = "content/images/Untitlesssssd.png"
             }
         };
 
