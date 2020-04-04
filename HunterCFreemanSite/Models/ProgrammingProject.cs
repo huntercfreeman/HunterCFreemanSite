@@ -28,5 +28,6 @@ namespace HunterCFreemanSite.Models
         public bool PassedArraysFilter { get; set; } = true;
         public bool PassedHashBasedFilter { get; set; } = true;
         public bool PassedGraphsFilter { get; set; } = true;
+        public bool PassedOtherFilter { get; set; } = true;
     }
 }

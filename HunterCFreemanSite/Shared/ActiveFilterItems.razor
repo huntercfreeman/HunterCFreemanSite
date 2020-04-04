@@ -54,3 +54,7 @@
 {
     <ActiveFilterItem DisplayText="Graphs" RemoveFilter="(() => ProgrammingProjectRepository.FilterByGraphs())" />
 }
+@if (ProgrammingProjectRepository.FilterByOtherBool)
+{
+    <ActiveFilterItem DisplayText="Other" RemoveFilter="(() => ProgrammingProjectRepository.FilterByOther())" />
+}

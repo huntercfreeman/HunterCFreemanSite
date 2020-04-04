@@ -230,6 +230,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedGraphsFilter++;
             }
+            // Filter on Other
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Other") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedOtherFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -245,6 +252,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedArraysFilter { get; set; }
         public int ProjectsPassedHashBasedFilter { get; set; }
         public int ProjectsPassedGraphsFilter { get; set; }
+        public int ProjectsPassedOtherFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -498,6 +506,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByOtherBool;
+        public bool FilterByOtherBool
+        {
+            get => _filterByOtherBool;
+            set
+            {
+                _filterByOtherBool = value;
+                FilterByOtherBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByOtherBoolEventHandler;
+
+        public void FilterByOtherBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByOtherBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -651,10 +677,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedGraphsFilter = false;
                 }
             }
+            // Filter on Other
+            if (FilterByOtherBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Other") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedOtherFilter = true;
+                    else programmingProject.PassedOtherFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedGraphsFilter && programmingProject.PassedHashBasedFilter && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedOtherFilter && programmingProject.PassedGraphsFilter && programmingProject.PassedHashBasedFilter && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -850,6 +887,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByGraphsBool = !FilterByGraphsBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByOther()
+        {
+            if (FilterByOtherBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedOtherFilter = true;
+                }
+            }
+            FilterByOtherBool = !FilterByOtherBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
