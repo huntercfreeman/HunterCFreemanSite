@@ -14,6 +14,7 @@ namespace HunterCFreemanSite.Shared
         public Action Filter { get; set; }
         [Parameter]
         public Func<bool> IsChecked { get; set; }
+        [Parameter]
         public int NumberOfItems { get; set; }
         
     }

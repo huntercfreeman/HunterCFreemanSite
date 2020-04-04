@@ -12,6 +12,9 @@ namespace HunterCFreemanSite.Interfaces
         bool FilterByCProgrammingLanguageBool { get; set; }
         bool FilterByCSharpProgrammingLanguageBool { get; set; }
         bool FilterByListsBool { get; set; }
+        int ProjectsPassedCSharpFilter { get; set; }
+        int ProjectsPassedCFilter { get; set; }
+        int ProjectsPassedListsFilter { get; set; }
 
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();

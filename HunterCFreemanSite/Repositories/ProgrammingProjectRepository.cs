@@ -67,6 +67,35 @@ namespace HunterCFreemanSite.Repositories
             }
         };
 
+        public ProgrammingProjectRepository()
+        {
+            // Filter on C#
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("C#") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedCSharpFilter++;
+            }
+            // Filter on C
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("C") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedCFilter++;
+            }
+            // Filter on lists
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("List") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedListsFilter++;
+            }
+        }
+
+        public int ProjectsPassedCSharpFilter { get; set; }
+        public int ProjectsPassedCFilter { get; set; }
+        public int ProjectsPassedListsFilter { get; set; }
+
         private string _searchQuery;
         public string SearchQuery 
         {
@@ -141,6 +170,7 @@ namespace HunterCFreemanSite.Repositories
 
         public List<ProgrammingProject> GetProgrammingProjects()
         {
+            // Filter on SearchQuery
             if(!string.IsNullOrWhiteSpace(SearchQuery))
             {
                 foreach(ProgrammingProject programmingProject in _programmingProjects)
@@ -148,6 +178,7 @@ namespace HunterCFreemanSite.Repositories
                     programmingProject.PassedSearch = programmingProject.Title.Contains(SearchQuery);
                 }
             }
+            // Filter on C Programming Language
             if(FilterByCProgrammingLanguageBool)
             {
                 foreach (ProgrammingProject programmingProject in _programmingProjects)
@@ -158,6 +189,7 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedCProgrammingLanguageFilter = false;
                 }
             }
+            // Filter On C# Programming Language
             if (FilterByCSharpProgrammingLanguageBool)
             {
                 foreach (ProgrammingProject programmingProject in _programmingProjects)
@@ -168,6 +200,7 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedCSharpProgrammingLanguageFilter = false;
                 }
             }
+            // Filter on List
             if (FilterByListsBool)
             {
                 foreach (ProgrammingProject programmingProject in _programmingProjects)
@@ -178,6 +211,7 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedListsFilter = false;
                 }
             }
+            // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
                 programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
