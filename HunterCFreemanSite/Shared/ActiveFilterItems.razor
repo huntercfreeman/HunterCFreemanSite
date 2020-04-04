@@ -26,3 +26,7 @@
 {
     <ActiveFilterItem DisplayText="Integral Calculus" RemoveFilter="(() => ProgrammingProjectRepository.FilterByIntegralCalculus())" />
 }
+@if (ProgrammingProjectRepository.FilterByMultivariableCalculusBool)
+{
+    <ActiveFilterItem DisplayText="Multivariable Calculus" RemoveFilter="(() => ProgrammingProjectRepository.FilterByMultivariableCalculus())" />
+}

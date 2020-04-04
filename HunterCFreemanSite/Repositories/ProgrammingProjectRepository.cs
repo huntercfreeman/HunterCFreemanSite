@@ -153,6 +153,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedIntegralCalculusFilter++;
             }
+            // Filter on Multivariable Calculus
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Multivariable Calculus") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedMultivariableCalculusFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -161,6 +168,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedTreesFilter { get; set; }
         public int ProjectsPassedDifferentialCalculusFilter { get; set; }
         public int ProjectsPassedIntegralCalculusFilter { get; set; }
+        public int ProjectsPassedMultivariableCalculusFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -288,6 +296,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByMultivariableCalculusBool;
+        public bool FilterByMultivariableCalculusBool
+        {
+            get => _filterByMultivariableCalculusBool;
+            set
+            {
+                _filterByMultivariableCalculusBool = value;
+                FilterByMultivariableCalculusBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByMultivariableCalculusBoolEventHandler;
+
+        public void FilterByMultivariableCalculusBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByMultivariableCalculusBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -364,10 +390,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedIntegralCalculusFilter = false;
                 }
             }
+            // Filter on Multivariable Calculus
+            if (FilterByMultivariableCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Multivariable Calculus") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedMultivariableCalculusFilter = true;
+                    else programmingProject.PassedMultivariableCalculusFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -466,6 +503,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByIntegralCalculusBool = !FilterByIntegralCalculusBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByMultivariableCalculus()
+        {
+            if (FilterByMultivariableCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedMultivariableCalculusFilter = true;
+                }
+            }
+            FilterByMultivariableCalculusBool = !FilterByMultivariableCalculusBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }

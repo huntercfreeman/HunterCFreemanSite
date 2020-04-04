@@ -21,5 +21,6 @@ namespace HunterCFreemanSite.Models
         public bool PassedTreesFilter { get; set; } = true;
         public bool PassedDifferentialCalculusFilter { get; set; } = true;
         public bool PassedIntegralCalculusFilter { get; set; } = true;
+        public bool PassedMultivariableCalculusFilter { get; set; } = true;
     }
 }
