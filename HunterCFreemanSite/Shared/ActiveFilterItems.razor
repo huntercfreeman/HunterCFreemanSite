@@ -1,8 +1,8 @@
 ﻿@if (!string.IsNullOrWhiteSpace(ProgrammingProjectRepository.SearchQuery))
 {
-    <ActiveFilterItem />
+    <ActiveFilterItem DisplayText="@ProgrammingProjectRepository.SearchQuery" RemoveFilter="(() => ProgrammingProjectRepository.SearchQuery = string.Empty)" />
 }
 @if (ProgrammingProjectRepository.FilterByCProgrammingLanguageBool)
 {
-    <ActiveFilterItem />
+    <ActiveFilterItem DisplayText="C Programs" RemoveFilter="(() => ProgrammingProjectRepository.FilterByCProgrammingLanguage())" />
 }
