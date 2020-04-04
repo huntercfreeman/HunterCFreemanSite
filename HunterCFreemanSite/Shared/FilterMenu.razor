@@ -54,7 +54,7 @@
                 </li>
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Math</h3>
-                    <FilterMenuItem DisplayText="Differential Calculus" Filter="NotImplemented" IsChecked="(() => false)" />
+                    <FilterMenuItem DisplayText="Differential Calculus" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedDifferentialCalculusFilter" Filter="(() => ProgrammingProjectRepository.FilterByDifferentialCalculus())" IsChecked="(() => ProgrammingProjectRepository.FilterByDifferentialCalculusBool ? true : false)" />
                     <FilterMenuItem DisplayText="Integral Calculus" Filter="NotImplemented" IsChecked="(() => false)" />
                     <FilterMenuItem DisplayText="Multivariable Calculus" Filter="NotImplemented" IsChecked="(() => false)" />
                     <FilterMenuItem DisplayText="Differential Equations" Filter="NotImplemented" IsChecked="(() => false)" />

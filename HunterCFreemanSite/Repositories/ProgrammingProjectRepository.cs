@@ -139,12 +139,20 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedTreesFilter++;
             }
+            // Filter on Differential Calculus
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Differential Calculus") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedDifferentialCalculusFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
         public int ProjectsPassedCFilter { get; set; }
         public int ProjectsPassedListsFilter { get; set; }
         public int ProjectsPassedTreesFilter { get; set; }
+        public int ProjectsPassedDifferentialCalculusFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -236,6 +244,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByDifferentialCalculusBool;
+        public bool FilterByDifferentialCalculusBool
+        {
+            get => _filterByDifferentialCalculusBool;
+            set
+            {
+                _filterByDifferentialCalculusBool = value;
+                FilterByDifferentialCalculusBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByDifferentialCalculusBoolEventHandler;
+
+        public void FilterByDifferentialCalculusBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByDifferentialCalculusBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -290,10 +316,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedTreesFilter = false;
                 }
             }
+            // Filter on Differential Calculus
+            if (FilterByDifferentialCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Differential Calculus") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedDifferentialCalculusFilter = true;
+                    else programmingProject.PassedDifferentialCalculusFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -368,6 +405,19 @@ namespace HunterCFreemanSite.Repositories
             return GetProgrammingProjects();
         }
 
+        public List<ProgrammingProject> FilterByDifferentialCalculus()
+        {
+            if (FilterByDifferentialCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedDifferentialCalculusFilter = true;
+                }
+            }
+            FilterByDifferentialCalculusBool = !FilterByDifferentialCalculusBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
 
         public event EventHandler DataChangedEventHandler;
 

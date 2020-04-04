@@ -18,3 +18,7 @@
 {
     <ActiveFilterItem DisplayText="Trees" RemoveFilter="(() => ProgrammingProjectRepository.FilterByTrees())" />
 }
+@if (ProgrammingProjectRepository.FilterByDifferentialCalculusBool)
+{
+    <ActiveFilterItem DisplayText="Differential Calculus" RemoveFilter="(() => ProgrammingProjectRepository.FilterByDifferentialCalculus())" />
+}
