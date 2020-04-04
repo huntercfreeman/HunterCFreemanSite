@@ -67,8 +67,41 @@ namespace HunterCFreemanSite.Repositories
             }
         };
 
-        public string SearchQuery { get; set; }
-        public bool FilterByCProgrammingLanguageBool { get; set; }
+        private string _searchQuery;
+        public string SearchQuery 
+        {
+            get => _searchQuery;
+            set 
+            {
+                _searchQuery = value;
+                SearchQueryEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler SearchQueryEventHandler;
+
+        public void SearchQueryEventInvoke(EventArgs e)
+        {
+            EventHandler handler = SearchQueryEventHandler;
+            handler?.Invoke(this, e);
+        }
+
+        private bool _filterByCProgrammingLanguageBool;
+        public bool FilterByCProgrammingLanguageBool 
+        {
+            get => _filterByCProgrammingLanguageBool;
+            set
+            {
+                _filterByCProgrammingLanguageBool = value;
+                FilterByCProgrammingLanguageBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByCProgrammingLanguageBoolEventHandler;
+
+        public void FilterByCProgrammingLanguageBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByCProgrammingLanguageBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
 
         public List<ProgrammingProject> GetProgrammingProjects()
         {
