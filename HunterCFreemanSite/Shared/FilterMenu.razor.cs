@@ -17,7 +17,7 @@ namespace HunterCFreemanSite.Shared
         public bool IsCollapsed { get; set; }
         public string Height 
         {
-            get => IsCollapsed ? "56px" : "auto";
+            get => IsCollapsed ? "56px" : "100vh";
         }
 
         public List<ProgrammingProject> ProgrammingProjects { get; set; }
