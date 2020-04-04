@@ -31,7 +31,7 @@ namespace HunterCFreemanSite.Repositories
             {
                 Title = "Singly Linked List in C",
                 Description = "A full implementation of a singly linked list in C written with name collision in mind.",
-                Tags = new List<string> { "C", "Datastructures", "Linked List", "Singly Linked List", "Singly", "Collision" },
+                Tags = new List<string> { "C", "Datastructures", "Linked List", "Singly Linked List", "Singly", "Collision", "List", "Lists" },
                 ImageURL = "content/images/Untitlesssssd.png",
                 HrefURL = "https://github.com/huntercfreeman/singlyLinkedList"
             },
@@ -39,7 +39,7 @@ namespace HunterCFreemanSite.Repositories
             {
                 Title = "Doubly Linked List in C",
                 Description = "A full implementation of a doubly linked list in C written with name collision in mind.",
-                Tags = new List<string> { "C", "Datastructures", "Linked List", "Doubly Linked List", "Doubly", "Collision" },
+                Tags = new List<string> { "C", "Datastructures", "Linked List", "Doubly Linked List", "Doubly", "Collision", "List", "Lists" },
                 ImageURL = "content/images/Untitlesssssd.png",
                 HrefURL = "https://github.com/huntercfreeman/doublyLinkedList"
             },
@@ -55,7 +55,7 @@ namespace HunterCFreemanSite.Repositories
             {
                 Title = "Linked List Visualizer in C#",
                 Description = "A Linked List Visualizer written in C#",
-                Tags = new List<string> { "C#", "CSharp", "Linked List", "Singly Linked List", "Doubly Linked List", "Visualize", "Visualizer" },
+                Tags = new List<string> { "C#", "CSharp", "Linked List", "Singly Linked List", "Doubly Linked List", "Visualize", "Visualizer", "List", "Lists" },
                 ImageURL = "content/images/Untitlesssssd.png"
             },
             new ProgrammingProject
@@ -121,6 +121,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByListsBool;
+        public bool FilterByListsBool
+        {
+            get => _filterByListsBool;
+            set
+            {
+                _filterByListsBool = value;
+                FilterByListsBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByListsBoolEventHandler;
+
+        public void FilterByListsBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByListsBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             if(!string.IsNullOrWhiteSpace(SearchQuery))
@@ -150,9 +168,19 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedCSharpProgrammingLanguageFilter = false;
                 }
             }
+            if (FilterByListsBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("List") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedListsFilter = true;
+                    else programmingProject.PassedListsFilter = false;
+                }
+            }
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -195,6 +223,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByCSharpProgrammingLanguageBool = !FilterByCSharpProgrammingLanguageBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByCSharpProgrammingLanguage()
+        {
+            if (FilterByListsBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.FilterByListsBool = true;
+                }
+            }
+            FilterByListsBool = !FilterByListsBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }

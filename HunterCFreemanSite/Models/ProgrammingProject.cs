@@ -17,5 +17,6 @@ namespace HunterCFreemanSite.Models
         public bool PassedAllFilters { get; set; } = true;
         public bool PassedCProgrammingLanguageFilter { get; set; } = true;
         public bool PassedCSharpProgrammingLanguageFilter { get; set; } = true;
+        public bool PassedListsFilter { get; set; } = true;
     }
 }

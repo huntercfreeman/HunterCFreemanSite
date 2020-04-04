@@ -17,7 +17,7 @@ namespace HunterCFreemanSite.Shared
             base.OnInitialized();
             ProgrammingProjectRepository.SearchQueryEventHandler += ProgrammingProjectRepository_SearchQueryEventHandler;
             ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
-            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler; ;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
         }
 
         private void ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler(object sender, EventArgs e)
@@ -39,6 +39,7 @@ namespace HunterCFreemanSite.Shared
         {
             ProgrammingProjectRepository.SearchQueryEventHandler -= ProgrammingProjectRepository_SearchQueryEventHandler;
             ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler -= ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler -= ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
         }
 
         
