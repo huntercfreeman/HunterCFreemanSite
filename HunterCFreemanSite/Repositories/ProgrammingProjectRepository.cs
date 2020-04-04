@@ -237,6 +237,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedOtherFilter++;
             }
+            // Filter on Online Shop
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Online Shop") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedOnlineShopFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -253,6 +260,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedHashBasedFilter { get; set; }
         public int ProjectsPassedGraphsFilter { get; set; }
         public int ProjectsPassedOtherFilter { get; set; }
+        public int ProjectsPassedOnlineShopFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -524,6 +532,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByOnlineShopBool;
+        public bool FilterByOnlineShopBool
+        {
+            get => _filterByOnlineShopBool;
+            set
+            {
+                _filterByOnlineShopBool = value;
+                FilterByOnlineShopBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByOnlineShopBoolEventHandler;
+
+        public void FilterByOnlineShopBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByOnlineShopBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -688,10 +714,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedOtherFilter = false;
                 }
             }
+            // Filter on Online Shop
+            if (FilterByOnlineShopBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Online Shop") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedOnlineShopFilter = true;
+                    else programmingProject.PassedOnlineShopFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedOtherFilter && programmingProject.PassedGraphsFilter && programmingProject.PassedHashBasedFilter && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedOnlineShopFilter && programmingProject.PassedOtherFilter && programmingProject.PassedGraphsFilter && programmingProject.PassedHashBasedFilter && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -901,6 +938,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByOtherBool = !FilterByOtherBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByOnlineShop()
+        {
+            if (FilterByOnlineShopBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedOnlineShopFilter = true;
+                }
+            }
+            FilterByOnlineShopBool = !FilterByOnlineShopBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
