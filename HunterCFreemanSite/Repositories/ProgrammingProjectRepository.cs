@@ -167,6 +167,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedDifferentialEquationsFilter++;
             }
+            // Filter on Linear Algebra
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Linear Algebra") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedLinearAlgebraFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -177,6 +184,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedIntegralCalculusFilter { get; set; }
         public int ProjectsPassedMultivariableCalculusFilter { get; set; }
         public int ProjectsPassedDifferentialEquationsFilter { get; set; }
+        public int ProjectsPassedLinearAlgebraFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -340,6 +348,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByLinearAlgebraBool;
+        public bool FilterByLinearAlgebraBool
+        {
+            get => _filterByLinearAlgebraBool;
+            set
+            {
+                _filterByLinearAlgebraBool = value;
+                FilterByLinearAlgebraBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByLinearAlgebraBoolEventHandler;
+
+        public void FilterByLinearAlgebraBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByLinearAlgebraBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -438,10 +464,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedDifferentialEquationsFilter = false;
                 }
             }
+            // Filter on Linear Algebra
+            if (FilterByLinearAlgebraBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Linear Algebra") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedLinearAlgebraFilter = true;
+                    else programmingProject.PassedLinearAlgebraFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -567,6 +604,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByDifferentialEquationsBool = !FilterByDifferentialEquationsBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByLinearAlgebra()
+        {
+            if (FilterByLinearAlgebraBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedLinearAlgebraFilter = true;
+                }
+            }
+            FilterByLinearAlgebraBool = !FilterByLinearAlgebraBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }

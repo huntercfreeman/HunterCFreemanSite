@@ -34,3 +34,7 @@
 {
     <ActiveFilterItem DisplayText="Differential Equations" RemoveFilter="(() => ProgrammingProjectRepository.FilterByDifferentialEquations())" />
 }
+@if (ProgrammingProjectRepository.FilterByLinearAlgebraBool)
+{
+    <ActiveFilterItem DisplayText="Linear Algebra" RemoveFilter="(() => ProgrammingProjectRepository.FilterByLinearAlgebra())" />
+}

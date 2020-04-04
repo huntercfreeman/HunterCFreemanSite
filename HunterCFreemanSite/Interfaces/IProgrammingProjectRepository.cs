@@ -25,6 +25,8 @@ namespace HunterCFreemanSite.Interfaces
         int ProjectsPassedMultivariableCalculusFilter { get; set; }
         bool FilterByDifferentialEquationsBool { get; set; }
         int ProjectsPassedDifferentialEquationsFilter { get; set; }
+        bool FilterByLinearAlgebraBool { get; set; }
+        int ProjectsPassedLinearAlgebraFilter { get; set; }
 
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();
@@ -40,6 +42,7 @@ namespace HunterCFreemanSite.Interfaces
         event EventHandler FilterByIntegralCalculusBoolEventHandler;
         event EventHandler FilterByMultivariableCalculusBoolEventHandler;
         event EventHandler FilterByDifferentialEquationsBoolEventHandler;
+        event EventHandler FilterByLinearAlgebraBoolEventHandler;
 
         public void DataChangedEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByCProgrammingLanguage();
@@ -59,5 +62,7 @@ namespace HunterCFreemanSite.Interfaces
         void FilterByMultivariableCalculusBoolEventInvoke(EventArgs e);
         void FilterByDifferentialEquationsBoolEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByDifferentialEquations();
+        List<ProgrammingProject> FilterByLinearAlgebra();
+        void FilterByLinearAlgebraBoolEventInvoke(EventArgs e);
     }
 }
