@@ -227,13 +227,13 @@ namespace HunterCFreemanSite.Repositories
             return GetProgrammingProjects();
         }
 
-        public List<ProgrammingProject> FilterByCSharpProgrammingLanguage()
+        public List<ProgrammingProject> FilterByLists()
         {
             if (FilterByListsBool)
             {
                 foreach (ProgrammingProject programmingProject in _programmingProjects)
                 {
-                    programmingProject.FilterByListsBool = true;
+                    programmingProject.PassedListsFilter = true;
                 }
             }
             FilterByListsBool = !FilterByListsBool;

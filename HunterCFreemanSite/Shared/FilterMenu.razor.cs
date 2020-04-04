@@ -26,6 +26,18 @@ namespace HunterCFreemanSite.Shared
             base.OnInitialized();
             ProgrammingProjects = ProgrammingProjectRepository.GetProgrammingProjects();
             ProgrammingProjectRepository.FilterByCProgrammingLanguageBoolEventHandler += ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler;
+            ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBoolBoolEventHandler += ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
+            ProgrammingProjectRepository.FilterByListsBoolEventHandler += ProgrammingProjectRepository_FilterByListsBoolEventHandler;
+        }
+
+        private void ProgrammingProjectRepository_FilterByListsBoolEventHandler(object sender, EventArgs e)
+        {
+            InvokeAsync(StateHasChanged);
+        }
+
+        private void ProgrammingProjectRepository_FilterByCSharpProgrammingLanguageBoolBoolEventHandler(object sender, EventArgs e)
+        {
+            InvokeAsync(StateHasChanged);
         }
 
         private void ProgrammingProjectRepository_FilterByCProgrammingLanguageBoolEventHandler(object sender, EventArgs e)

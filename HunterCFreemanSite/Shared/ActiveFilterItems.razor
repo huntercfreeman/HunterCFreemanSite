@@ -10,3 +10,7 @@
 {
     <ActiveFilterItem DisplayText="C# Programs" RemoveFilter="(() => ProgrammingProjectRepository.FilterByCSharpProgrammingLanguage())" />
 }
+@if (ProgrammingProjectRepository.FilterByListsBool)
+{
+    <ActiveFilterItem DisplayText="Lists" RemoveFilter="(() => ProgrammingProjectRepository.FilterByLists())" />
+}

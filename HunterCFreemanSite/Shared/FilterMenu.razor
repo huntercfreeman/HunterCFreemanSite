@@ -46,7 +46,7 @@
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Data Structures</h3>
                     <FilterMenuItem DisplayText="Arrays" Filter="NotImplemented" IsChecked="(() => false)" />
-                    <FilterMenuItem DisplayText="Lists" Filter="NotImplemented" IsChecked="(() => false)" />
+                    <FilterMenuItem DisplayText="Lists" Filter="(() => ProgrammingProjectRepository.FilterByLists())" IsChecked="(() => ProgrammingProjectRepository.FilterByListsBool ? true : false)" />
                     <FilterMenuItem DisplayText="Trees" Filter="NotImplemented" IsChecked="(() => false)" />
                     <FilterMenuItem DisplayText="Hash Based" Filter="NotImplemented" IsChecked="(() => false)" />
                     <FilterMenuItem DisplayText="Graphs" Filter="NotImplemented" IsChecked="(() => false)" />
