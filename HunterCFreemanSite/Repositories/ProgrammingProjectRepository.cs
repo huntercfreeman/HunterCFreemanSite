@@ -146,6 +146,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedDifferentialCalculusFilter++;
             }
+            // Filter on Integral Calculus
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Integral Calculus") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedIntegralCalculusFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -153,6 +160,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedListsFilter { get; set; }
         public int ProjectsPassedTreesFilter { get; set; }
         public int ProjectsPassedDifferentialCalculusFilter { get; set; }
+        public int ProjectsPassedIntegralCalculusFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -262,6 +270,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByIntegralCalculusBool;
+        public bool FilterByIntegralCalculusBool
+        {
+            get => _filterByIntegralCalculusBool;
+            set
+            {
+                _filterByIntegralCalculusBool = value;
+                FilterByIntegralCalculusBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByIntegralCalculusBoolEventHandler;
+
+        public void FilterByIntegralCalculusBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByIntegralCalculusBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -327,10 +353,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedDifferentialCalculusFilter = false;
                 }
             }
+            // Filter on Integral Calculus
+            if (FilterByIntegralCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Integral Calculus") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedIntegralCalculusFilter = true;
+                    else programmingProject.PassedIntegralCalculusFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -415,6 +452,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByDifferentialCalculusBool = !FilterByDifferentialCalculusBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByIntegralCalculus()
+        {
+            if (FilterByIntegralCalculusBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedIntegralCalculusFilter = true;
+                }
+            }
+            FilterByIntegralCalculusBool = !FilterByIntegralCalculusBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
