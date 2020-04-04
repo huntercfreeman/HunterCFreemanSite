@@ -41,7 +41,7 @@
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Languages</h3>
                     <FilterMenuItem DisplayText="C" Filter="(() => ProgrammingProjectRepository.FilterByCProgrammingLanguage())" IsChecked="(() => ProgrammingProjectRepository.FilterByCProgrammingLanguageBool ? true : false)"/>
-                    <FilterMenuItem DisplayText="C#" Filter="NotImplemented" IsChecked="(() => false)"/>
+                    <FilterMenuItem DisplayText="C#" Filter="(() => ProgrammingProjectRepository.FilterByCSharpProgrammingLanguage())" IsChecked="(() => ProgrammingProjectRepository.FilterByCSharpProgrammingLanguageBool ? true : false)"/>
                 </li>
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Data Structures</h3>

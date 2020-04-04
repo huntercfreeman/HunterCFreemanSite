@@ -10,6 +10,7 @@ namespace HunterCFreemanSite.Interfaces
     {
         string SearchQuery { get; set; }
         bool FilterByCProgrammingLanguageBool { get; set; }
+        bool FilterByCSharpProgrammingLanguageBool { get; set; }
 
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();
@@ -18,10 +19,13 @@ namespace HunterCFreemanSite.Interfaces
         public event EventHandler DataChangedEventHandler;
         event EventHandler SearchQueryEventHandler;
         event EventHandler FilterByCProgrammingLanguageBoolEventHandler;
+        event EventHandler FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
 
         public void DataChangedEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByCProgrammingLanguage();
         void SearchQueryEventInvoke(EventArgs e);
         void FilterByCProgrammingLanguageBoolEventInvoke(EventArgs e);
+        void FilterByCSharpProgrammingLanguageBoolEventInvoke(EventArgs e);
+        List<ProgrammingProject> FilterByCSharpProgrammingLanguage();
     }
 }

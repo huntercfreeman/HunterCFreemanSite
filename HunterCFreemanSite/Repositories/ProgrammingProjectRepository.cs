@@ -103,6 +103,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByCSharpProgrammingLanguageBool;
+        public bool FilterByCSharpProgrammingLanguageBool
+        {
+            get => _filterByCSharpProgrammingLanguageBool;
+            set
+            {
+                _filterByCSharpProgrammingLanguageBool = value;
+                FilterByCSharpProgrammingLanguageBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
+
+        public void FilterByCSharpProgrammingLanguageBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByCSharpProgrammingLanguageBoolBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             if(!string.IsNullOrWhiteSpace(SearchQuery))
@@ -122,9 +140,19 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedCProgrammingLanguageFilter = false;
                 }
             }
-            foreach(ProgrammingProject programmingProject in _programmingProjects)
+            if (FilterByCSharpProgrammingLanguageBool)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("C#") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedCSharpProgrammingLanguageFilter = true;
+                    else programmingProject.PassedCSharpProgrammingLanguageFilter = false;
+                }
+            }
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -153,6 +181,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByCProgrammingLanguageBool = !FilterByCProgrammingLanguageBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByCSharpProgrammingLanguage()
+        {
+            if (FilterByCSharpProgrammingLanguageBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedCSharpProgrammingLanguageFilter = true;
+                }
+            }
+            FilterByCSharpProgrammingLanguageBool = !FilterByCSharpProgrammingLanguageBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
