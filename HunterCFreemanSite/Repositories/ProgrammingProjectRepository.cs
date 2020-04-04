@@ -90,11 +90,19 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedListsFilter++;
             }
+            // Filter on trees
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Tree") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedTreesFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
         public int ProjectsPassedCFilter { get; set; }
         public int ProjectsPassedListsFilter { get; set; }
+        public int ProjectsPassedTreesFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -168,6 +176,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByTreesBool;
+        public bool FilterByTreesBool
+        {
+            get => _filterByTreesBool;
+            set
+            {
+                _filterByTreesBool = value;
+                FilterByTreesBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByTreesBoolEventHandler;
+
+        public void FilterByTreesBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByTreesBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -211,10 +237,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedListsFilter = false;
                 }
             }
+            // Filter on Tree
+            if (FilterByTreesBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Tree") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedTreesFilter = true;
+                    else programmingProject.PassedTreesFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -274,6 +311,21 @@ namespace HunterCFreemanSite.Repositories
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
+
+        public List<ProgrammingProject> FilterByTrees()
+        {
+            if (FilterByTreesBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedTreesFilter = true;
+                }
+            }
+            FilterByTreesBool = !FilterByTreesBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
 
         public event EventHandler DataChangedEventHandler;
 
