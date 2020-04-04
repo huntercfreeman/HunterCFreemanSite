@@ -30,3 +30,7 @@
 {
     <ActiveFilterItem DisplayText="Multivariable Calculus" RemoveFilter="(() => ProgrammingProjectRepository.FilterByMultivariableCalculus())" />
 }
+@if (ProgrammingProjectRepository.FilterByDifferentialEquationsBool)
+{
+    <ActiveFilterItem DisplayText="Differential Equations" RemoveFilter="(() => ProgrammingProjectRepository.FilterByDifferentialEquations())" />
+}

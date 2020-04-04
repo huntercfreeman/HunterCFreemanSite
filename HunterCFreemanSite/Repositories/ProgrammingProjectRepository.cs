@@ -160,6 +160,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedMultivariableCalculusFilter++;
             }
+            // Filter on Differential Equations
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Differential Equations") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedDifferentialEquationsFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -169,6 +176,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedDifferentialCalculusFilter { get; set; }
         public int ProjectsPassedIntegralCalculusFilter { get; set; }
         public int ProjectsPassedMultivariableCalculusFilter { get; set; }
+        public int ProjectsPassedDifferentialEquationsFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -314,6 +322,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByDifferentialEquationsBool;
+        public bool FilterByDifferentialEquationsBool
+        {
+            get => _filterByDifferentialEquationsBool;
+            set
+            {
+                _filterByDifferentialEquationsBool = value;
+                FilterByDifferentialEquationsBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByDifferentialEquationsBoolEventHandler;
+
+        public void FilterByDifferentialEquationsBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByDifferentialEquationsBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -401,10 +427,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedMultivariableCalculusFilter = false;
                 }
             }
+            // Filter on Differential Equations
+            if (FilterByDifferentialEquationsBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Differential Equations") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedDifferentialEquationsFilter = true;
+                    else programmingProject.PassedDifferentialEquationsFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -517,6 +554,19 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByMultivariableCalculusBool = !FilterByMultivariableCalculusBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+        public List<ProgrammingProject> FilterByDifferentialEquations()
+        {
+            if (FilterByDifferentialEquationsBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedDifferentialEquationsFilter = true;
+                }
+            }
+            FilterByDifferentialEquationsBool = !FilterByDifferentialEquationsBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
