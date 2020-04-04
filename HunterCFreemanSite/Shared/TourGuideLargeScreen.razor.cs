@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace HunterCFreemanSite.Shared
 {
-    public partial class TourGuide : ComponentBase
+    public partial class TourGuideLargeScreen : ComponentBase
     {
+        [Inject]
+        public SiteState SiteState { get; set; }
     }
 }
