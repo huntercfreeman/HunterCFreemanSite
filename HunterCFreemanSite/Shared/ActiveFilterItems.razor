@@ -46,3 +46,7 @@
 {
     <ActiveFilterItem DisplayText="Arrays" RemoveFilter="(() => ProgrammingProjectRepository.FilterByArrays())" />
 }
+@if (ProgrammingProjectRepository.FilterByHashBasedBool)
+{
+    <ActiveFilterItem DisplayText="Hash Based" RemoveFilter="(() => ProgrammingProjectRepository.FilterByHashBased())" />
+}

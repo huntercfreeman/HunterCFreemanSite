@@ -216,6 +216,13 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedArraysFilter++;
             }
+            // Filter on Hash Based
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Hash Based") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedHashBasedFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -229,6 +236,7 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedLinearAlgebraFilter { get; set; }
         public int ProjectsPassedDiscreteMathFilter { get; set; }
         public int ProjectsPassedArraysFilter { get; set; }
+        public int ProjectsPassedHashBasedFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -446,6 +454,24 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByHashBasedBool;
+        public bool FilterByHashBasedBool
+        {
+            get => _filterByHashBasedBool;
+            set
+            {
+                _filterByHashBasedBool = value;
+                FilterByHashBasedBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByHashBasedBoolEventHandler;
+
+        public void FilterByHashBasedBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByHashBasedBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -577,10 +603,21 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedArraysFilter = false;
                 }
             }
+            // Filter on Hash Based
+            if (FilterByHashBasedBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Hash Based") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedHashBasedFilter = true;
+                    else programmingProject.PassedHashBasedFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedHashBasedFilter && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -748,6 +785,20 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByArraysBool = !FilterByArraysBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByHashBased()
+        {
+            if (FilterByHashBasedBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedHashBasedFilter = true;
+                }
+            }
+            FilterByHashBasedBool = !FilterByHashBasedBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }
