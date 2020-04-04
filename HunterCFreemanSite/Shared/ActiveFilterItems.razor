@@ -50,3 +50,7 @@
 {
     <ActiveFilterItem DisplayText="Hash Based" RemoveFilter="(() => ProgrammingProjectRepository.FilterByHashBased())" />
 }
+@if (ProgrammingProjectRepository.FilterByGraphsBool)
+{
+    <ActiveFilterItem DisplayText="Graphs" RemoveFilter="(() => ProgrammingProjectRepository.FilterByGraphs())" />
+}

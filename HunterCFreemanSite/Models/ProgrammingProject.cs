@@ -27,5 +27,6 @@ namespace HunterCFreemanSite.Models
         public bool PassedDiscreteMathFilter { get; set; } = true;
         public bool PassedArraysFilter { get; set; } = true;
         public bool PassedHashBasedFilter { get; set; } = true;
+        public bool PassedGraphsFilter { get; set; } = true;
     }
 }

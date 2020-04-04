@@ -33,6 +33,8 @@ namespace HunterCFreemanSite.Interfaces
         int ProjectsPassedArraysFilter { get; set; }
         bool FilterByHashBasedBool { get; set; }
         int ProjectsPassedHashBasedFilter { get; set; }
+        bool FilterByGraphsBool { get; set; }
+        int ProjectsPassedGraphsFilter { get; set; }
 
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();
@@ -52,6 +54,7 @@ namespace HunterCFreemanSite.Interfaces
         event EventHandler FilterByDiscreteMathBoolEventHandler;
         event EventHandler FilterByArraysBoolEventHandler;
         event EventHandler FilterByHashBasedBoolEventHandler;
+        event EventHandler FilterByGraphsBoolEventHandler;
 
         public void DataChangedEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByCProgrammingLanguage();
@@ -79,5 +82,7 @@ namespace HunterCFreemanSite.Interfaces
         void FilterByArraysBoolEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByHashBased();
         void FilterByHashBasedBoolEventInvoke(EventArgs e);
+        List<ProgrammingProject> FilterByGraphs();
+        void FilterByGraphsBoolEventInvoke(EventArgs e);
     }
 }
