@@ -38,3 +38,11 @@
 {
     <ActiveFilterItem DisplayText="Linear Algebra" RemoveFilter="(() => ProgrammingProjectRepository.FilterByLinearAlgebra())" />
 }
+@if (ProgrammingProjectRepository.FilterByDiscreteMathBool)
+{
+    <ActiveFilterItem DisplayText="Discrete Math" RemoveFilter="(() => ProgrammingProjectRepository.FilterByDiscreteMath())" />
+}
+@if (ProgrammingProjectRepository.FilterByArraysBool)
+{
+    <ActiveFilterItem DisplayText="Arrays" RemoveFilter="(() => ProgrammingProjectRepository.FilterByArrays())" />
+}

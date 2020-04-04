@@ -15,7 +15,7 @@ namespace HunterCFreemanSite.Repositories
             {
                 Title = "Pathfinding Algorithm Visualizer in C#",
                 Description = "A Pathfinding Algorithm Visualizer written in C#",
-                Tags = new List<string> { "C#", "CSharp", "Pathfinding", "Pathfinding Algorithms", "Algorithms", "Dijkstra", "AStar", "A*", "Visualize", "Visualizer" },
+                Tags = new List<string> { "C#", "CSharp", "Pathfinding", "Graph", "Pathfinding Algorithms", "Algorithms", "Dijkstra", "AStar", "A*", "Visualize", "Visualizer" },
                 ImageURL = "content/images/Untitzzzzled.png",
                 HrefURL = "https://huntercfreeman.github.io/"
             },
@@ -106,6 +106,34 @@ namespace HunterCFreemanSite.Repositories
                 Description = "A site with an answer to every problem in this book",
                 Tags = new List<string> { "Discrete Math" },
                 ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Matrix Exponentiation",
+                Description = "Calculate matrix exponentiation",
+                Tags = new List<string> { "Array", "Linear Algebra" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Hashtable In C",
+                Description = "A hashtable written in C",
+                Tags = new List<string> { "C", "Hash Based" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Costco Clone",
+                Description = "A Costco clone written in C#",
+                Tags = new List<string> { "C#", "Online Shop" },
+                ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Blog",
+                Description = "A Blog",
+                Tags = new List<string> { "C#", "Blog" },
+                ImageURL = "content/images/Untitlesssssd.png"
             }
         };
 
@@ -174,6 +202,20 @@ namespace HunterCFreemanSite.Repositories
 
                 if (contains.Count > 0) ProjectsPassedLinearAlgebraFilter++;
             }
+            // Filter on Discrete Math
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Discrete Math") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedDiscreteMathFilter++;
+            }
+            // Filter on Arrays
+            foreach (ProgrammingProject programmingProject in _programmingProjects)
+            {
+                List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Array") == 0).ToList();
+
+                if (contains.Count > 0) ProjectsPassedArraysFilter++;
+            }
         }
 
         public int ProjectsPassedCSharpFilter { get; set; }
@@ -185,6 +227,8 @@ namespace HunterCFreemanSite.Repositories
         public int ProjectsPassedMultivariableCalculusFilter { get; set; }
         public int ProjectsPassedDifferentialEquationsFilter { get; set; }
         public int ProjectsPassedLinearAlgebraFilter { get; set; }
+        public int ProjectsPassedDiscreteMathFilter { get; set; }
+        public int ProjectsPassedArraysFilter { get; set; }
 
         private string _searchQuery;
         public string SearchQuery 
@@ -366,6 +410,42 @@ namespace HunterCFreemanSite.Repositories
             handler?.Invoke(this, e);
         }
 
+        private bool _filterByDiscreteMathBool;
+        public bool FilterByDiscreteMathBool
+        {
+            get => _filterByDiscreteMathBool;
+            set
+            {
+                _filterByDiscreteMathBool = value;
+                FilterByDiscreteMathBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByDiscreteMathBoolEventHandler;
+
+        public void FilterByDiscreteMathBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByDiscreteMathBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
+        private bool _filterByArraysBool;
+        public bool FilterByArraysBool
+        {
+            get => _filterByArraysBool;
+            set
+            {
+                _filterByArraysBool = value;
+                FilterByArraysBoolEventInvoke(new EventArgs());
+            }
+        }
+        public event EventHandler FilterByArraysBoolEventHandler;
+
+        public void FilterByArraysBoolEventInvoke(EventArgs e)
+        {
+            EventHandler handler = FilterByArraysBoolEventHandler;
+            handler?.Invoke(this, e);
+        }
+
         public List<ProgrammingProject> GetProgrammingProjects()
         {
             // Filter on SearchQuery
@@ -475,10 +555,32 @@ namespace HunterCFreemanSite.Repositories
                     else programmingProject.PassedLinearAlgebraFilter = false;
                 }
             }
+            // Filter on Discrete Math
+            if (FilterByDiscreteMathBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Discrete Math") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedDiscreteMathFilter = true;
+                    else programmingProject.PassedDiscreteMathFilter = false;
+                }
+            }
+            // Filter on Arrays
+            if (FilterByArraysBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    List<string> contains = programmingProject.Tags.Where(x => x.CompareTo("Array") == 0).ToList();
+
+                    if (contains.Count > 0) programmingProject.PassedArraysFilter = true;
+                    else programmingProject.PassedArraysFilter = false;
+                }
+            }
             // And all the filters
             foreach (ProgrammingProject programmingProject in _programmingProjects)
             {
-                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
+                programmingProject.PassedAllFilters = programmingProject.PassedSearch && programmingProject.PassedArraysFilter && programmingProject.PassedDiscreteMathFilter && programmingProject.PassedLinearAlgebraFilter && programmingProject.PassedDifferentialEquationsFilter && programmingProject.PassedMultivariableCalculusFilter && programmingProject.PassedIntegralCalculusFilter && programmingProject.PassedDifferentialCalculusFilter && programmingProject.PassedTreesFilter && programmingProject.PassedListsFilter && programmingProject.PassedCSharpProgrammingLanguageFilter && programmingProject.PassedCProgrammingLanguageFilter;
             }
             return _programmingProjects.Where(x => x.PassedAllFilters).ToList();
         }
@@ -618,6 +720,34 @@ namespace HunterCFreemanSite.Repositories
                 }
             }
             FilterByLinearAlgebraBool = !FilterByLinearAlgebraBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByDiscreteMath()
+        {
+            if (FilterByDiscreteMathBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedDiscreteMathFilter = true;
+                }
+            }
+            FilterByDiscreteMathBool = !FilterByDiscreteMathBool;
+            DataChangedEventInvoke(new EventArgs());
+            return GetProgrammingProjects();
+        }
+
+        public List<ProgrammingProject> FilterByArrays()
+        {
+            if (FilterByArraysBool)
+            {
+                foreach (ProgrammingProject programmingProject in _programmingProjects)
+                {
+                    programmingProject.PassedArraysFilter = true;
+                }
+            }
+            FilterByArraysBool = !FilterByArraysBool;
             DataChangedEventInvoke(new EventArgs());
             return GetProgrammingProjects();
         }

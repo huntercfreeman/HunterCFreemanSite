@@ -27,6 +27,10 @@ namespace HunterCFreemanSite.Interfaces
         int ProjectsPassedDifferentialEquationsFilter { get; set; }
         bool FilterByLinearAlgebraBool { get; set; }
         int ProjectsPassedLinearAlgebraFilter { get; set; }
+        bool FilterByDiscreteMathBool { get; set; }
+        int ProjectsPassedDiscreteMathFilter { get; set; }
+        bool FilterByArraysBool { get; set; }
+        int ProjectsPassedArraysFilter { get; set; }
 
         List<ProgrammingProject> GetProgrammingProjects();
         List<ProgrammingProject> GetProgrammingProjectsUnfiltered();
@@ -43,6 +47,8 @@ namespace HunterCFreemanSite.Interfaces
         event EventHandler FilterByMultivariableCalculusBoolEventHandler;
         event EventHandler FilterByDifferentialEquationsBoolEventHandler;
         event EventHandler FilterByLinearAlgebraBoolEventHandler;
+        event EventHandler FilterByDiscreteMathBoolEventHandler;
+        event EventHandler FilterByArraysBoolEventHandler;
 
         public void DataChangedEventInvoke(EventArgs e);
         List<ProgrammingProject> FilterByCProgrammingLanguage();
@@ -64,5 +70,9 @@ namespace HunterCFreemanSite.Interfaces
         List<ProgrammingProject> FilterByDifferentialEquations();
         List<ProgrammingProject> FilterByLinearAlgebra();
         void FilterByLinearAlgebraBoolEventInvoke(EventArgs e);
+        void FilterByDiscreteMathBoolEventInvoke(EventArgs e);
+        List<ProgrammingProject> FilterByDiscreteMath();
+        List<ProgrammingProject> FilterByArrays();
+        void FilterByArraysBoolEventInvoke(EventArgs e);
     }
 }

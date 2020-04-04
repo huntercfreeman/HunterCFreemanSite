@@ -24,5 +24,7 @@ namespace HunterCFreemanSite.Models
         public bool PassedMultivariableCalculusFilter { get; set; } = true;
         public bool PassedDifferentialEquationsFilter { get; set; } = true;
         public bool PassedLinearAlgebraFilter { get; set; } = true;
+        public bool PassedDiscreteMathFilter { get; set; } = true;
+        public bool PassedArraysFilter { get; set; } = true;
     }
 }

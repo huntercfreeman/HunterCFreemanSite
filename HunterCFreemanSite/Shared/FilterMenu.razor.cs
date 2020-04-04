@@ -34,6 +34,8 @@ namespace HunterCFreemanSite.Shared
             ProgrammingProjectRepository.FilterByMultivariableCalculusBoolEventHandler += FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByDifferentialEquationsBoolEventHandler += FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByLinearAlgebraBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByDiscreteMathBoolEventHandler += FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByArraysBoolEventHandler += FilterSetEventHandler;
         }
 
         private void FilterSetEventHandler(object sender, EventArgs e)
@@ -57,6 +59,8 @@ namespace HunterCFreemanSite.Shared
             ProgrammingProjectRepository.FilterByMultivariableCalculusBoolEventHandler -= FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByDifferentialEquationsBoolEventHandler -= FilterSetEventHandler;
             ProgrammingProjectRepository.FilterByLinearAlgebraBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByDiscreteMathBoolEventHandler -= FilterSetEventHandler;
+            ProgrammingProjectRepository.FilterByArraysBoolEventHandler -= FilterSetEventHandler;
         }
     }
 }

@@ -45,7 +45,7 @@
                 </li>
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Data Structures</h3>
-                    <FilterMenuItem DisplayText="Arrays" Filter="NotImplemented" IsChecked="(() => false)" />
+                    <FilterMenuItem DisplayText="Arrays" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedArraysFilter" Filter="(() => ProgrammingProjectRepository.FilterByArrays())" IsChecked="(() => ProgrammingProjectRepository.FilterByArraysBool ? true : false)" />
                     <FilterMenuItem DisplayText="Lists" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedListsFilter" Filter="(() => ProgrammingProjectRepository.FilterByLists())" IsChecked="(() => ProgrammingProjectRepository.FilterByListsBool ? true : false)" />
                     <FilterMenuItem DisplayText="Trees" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedTreesFilter" Filter="(() => ProgrammingProjectRepository.FilterByTrees())" IsChecked="(() => ProgrammingProjectRepository.FilterByTreesBool ? true : false)" />
                     <FilterMenuItem DisplayText="Hash Based" Filter="NotImplemented" IsChecked="(() => false)" />
@@ -59,7 +59,7 @@
                     <FilterMenuItem DisplayText="Multivariable Calculus" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedMultivariableCalculusFilter" Filter="(() => ProgrammingProjectRepository.FilterByMultivariableCalculus())" IsChecked="(() => ProgrammingProjectRepository.FilterByMultivariableCalculusBool ? true : false)" />
                     <FilterMenuItem DisplayText="Differential Equations" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedDifferentialEquationsFilter" Filter="(() => ProgrammingProjectRepository.FilterByDifferentialEquations())" IsChecked="(() => ProgrammingProjectRepository.FilterByDifferentialEquationsBool ? true : false)" />
                     <FilterMenuItem DisplayText="Linear Algebra" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedLinearAlgebraFilter" Filter="(() => ProgrammingProjectRepository.FilterByLinearAlgebra())" IsChecked="(() => ProgrammingProjectRepository.FilterByLinearAlgebraBool ? true : false)" />
-                    <FilterMenuItem DisplayText="Discrete Math" Filter="NotImplemented" IsChecked="(() => false)" />
+                    <FilterMenuItem DisplayText="Discrete Math" NumberOfItems="ProgrammingProjectRepository.ProjectsPassedDiscreteMathFilter" Filter="(() => ProgrammingProjectRepository.FilterByDiscreteMath())" IsChecked="(() => ProgrammingProjectRepository.FilterByDiscreteMathBool ? true : false)" />
                 </li>
                 <li class="nav-item px-3">
                     <h3 style="text-decoration: underline;">Software Development</h3>
