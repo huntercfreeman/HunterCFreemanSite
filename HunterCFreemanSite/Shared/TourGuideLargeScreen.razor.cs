@@ -10,5 +10,7 @@ namespace HunterCFreemanSite.Shared
     {
         [Inject]
         public SiteState SiteState { get; set; }
+        public bool EndTour { get; set; }
+        public int TourPart { get; set; }
     }
 }

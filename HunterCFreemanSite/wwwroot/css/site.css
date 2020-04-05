@@ -14,3 +14,37 @@
     justify-content: center;
     font-size: 3vw;
 }
+
+.tourGuideLargeScreenPartOne {
+    box-shadow: 10px 10px 5px grey;
+    color: white;
+    position: absolute;
+    width: 19vw;
+    height: 60vh;
+    top: 20vh;
+    left: 1vw;
+    z-index: 1;
+    background-color: deepskyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+}
+
+.tourGuideLargeScreenPartTwo {
+    box-shadow: 10px 10px 5px grey;
+    color: white;
+    position: absolute;
+    width: 50vw;
+    height: 60vh;
+    top: 20vh;
+    left: 33vw;
+    z-index: 1;
+    background-color: deepskyblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 3vw;
+}
