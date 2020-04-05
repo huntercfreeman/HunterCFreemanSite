@@ -30,6 +30,164 @@
     align-items: center;
     justify-content: center;
     font-size: 3vw;
+    animation-name: animateToTourGuideLargeScreenPartOne;
+    animation-duration: 1s;
+}
+
+/* The animation code */
+@keyframes animateToTourGuideLargeScreenPartOne {
+    0% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 20vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    12.5% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 17.625vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    25% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 15.25vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    37.5% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 12.875vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    50% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 10.5vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    62.5% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 8.125vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    75% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 5.75vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    87.5% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 60vw;
+        height: 60vh;
+        top: 20vh;
+        left: 3.375vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    100% {
+        box-shadow: 10px 10px 5px grey;
+        color: white;
+        position: absolute;
+        width: 19vw;
+        height: 60vh;
+        top: 20vh;
+        left: 1vw;
+        z-index: 1;
+        background-color: deepskyblue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vw;
+    }
 }
 
 .tourGuideLargeScreenPartTwo {
