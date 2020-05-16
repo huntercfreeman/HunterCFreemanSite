@@ -134,6 +134,30 @@ namespace HunterCFreemanSite.Repositories
                 Description = "A Blog",
                 Tags = new List<string> { "C#", "Blog" },
                 ImageURL = "content/images/Untitlesssssd.png"
+            },
+            new ProgrammingProject
+            {
+                Title = "Min-Heap in C",
+                Description = "A min-heap in C",
+                Tags = new List<string> { "C", "Min-Heap", "min-heap", "heap", "Heap", "min", "Min", "Tree" },
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/minHeap"
+            },
+            new ProgrammingProject
+            {
+                Title = "Max-Heap in C",
+                Description = "A max-heap in C",
+                Tags = new List<string> { "C", "Max-Heap", "max-heap", "heap", "Heap", "Max", "max", "Tree" },
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/maxHeap"
+            },
+            new ProgrammingProject
+            {
+                Title = "Dictionary(HashMap) in C",
+                Description = "A Dictionary(HashMap) in C",
+                Tags = new List<string> { "C", "Dictionary", "HashMap", "Hash", "Hash Based" },
+                ImageURL = "content/images/Untitlesssssd.png",
+                HrefURL = "https://github.com/huntercfreeman/maxHeap"
             }
         };
 
